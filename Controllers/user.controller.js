@@ -49,45 +49,6 @@ const getUsers = (req, res) => {
     res.send(data);
   });
 };
-const editUserBio = async (req, res) => {
-  try {
-    const { bio, hobbies, education } = req.body;
-    const realId = jwt.verify(req.headers.token, process.env.SECRET);
-    console.log(bio, hobbies, education, realId);
-    const newUser = await User.findByIdAndUpdate(realId.id, {
-      bio: [bio, hobbies, education],
-    });
-    console.log(newUser, "This is the new bio");
-    return res.status(200).json(newUser);
-  } catch (err) {
-    return res.status(500).json(err.message);
-  }
-};
-
-const editUserIMG = async (req, res) => {
-  try {
-    const { profilePic } = req.body;
-    console.log(profilePic, "This is the profile pic");
-    const realId = jwt.verify(req.headers.token, process.env.SECRET);
-    const newUser = await User.findByIdAndUpdate(realId.id, {
-      profilePic: profilePic,
-    });
-    console.log(newUser, "This is the new profile picture link");
-    return res.status(200).json(newUser);
-  } catch (err) {
-    return res.status(500).json(err.message);
-  }
-};
-
-const getUserBio = async (req, res) => {
-  try {
-    const realId = jwt.verify(req.headers.token, process.env.SECRET);
-    const newUser = await User.findById(realId.id);
-    return res.status(200).json(newUser.bio);
-  } catch (err) {
-    return res.status(500).json(err.message);
-  }
-};
 
 const addAFriend = async (req, res) => {
   try {
@@ -109,8 +70,5 @@ module.exports = {
   getUser,
   getUserByUsername,
   getUsers,
-  editUserBio,
-  editUserIMG,
-  getUserBio,
   addAFriend,
 };
