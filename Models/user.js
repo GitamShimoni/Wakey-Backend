@@ -3,12 +3,15 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  isSleeping: { type: Boolean, required: false },
+  appUses: { type: Number, required: false },
+  trips: [{ type: mongoose.Types.ObjectId, ref: "Trip" }],
   email: { type: String, required: false, unique: false },
-  fullname: { type: String, required: false },
-  birthdate: { type: Date, required: false },
+  fullName: { type: String, required: false },
+  birthDate: { type: Date, required: false },
   gender: { type: String, required: false },
   profilePic: { type: String, required: false },
-  posts: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
+  // friends: [{ type: mongoose.Types.ObjectId, ref: "Trip" }],
 });
 
 module.exports = mongoose.model("User", userSchema);
