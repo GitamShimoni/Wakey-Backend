@@ -43,6 +43,8 @@ const register = async (req, res) => {
     const newUser = await User.create({
       username,
       password: hashedPassword,
+      isSleeping: false,
+      appUses: 0,
       // fullname,
       // gender,
       // email,

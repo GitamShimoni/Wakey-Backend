@@ -7,6 +7,7 @@ const cors = require("cors");
 require("dotenv").config();
 const unauthenticatedRoutes = require("./Routes/unauthenticated.route");
 const userRoutes = require("./Routes/user.route");
+const tripRoutes = require("./Routes/trip.route");
 
 const { MONGOATLAS } = process.env;
 mongoose
@@ -27,6 +28,7 @@ app.use(
 
 app.use("/unauth", unauthenticatedRoutes);
 app.use("/users", userRoutes);
+app.use("/trips", tripRoutes);
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");

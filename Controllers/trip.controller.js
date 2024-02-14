@@ -1,26 +1,46 @@
-const Post = require("../Models/post");
+const Trip = require("../Models/trip");
 const User = require("../Models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 const { ModuleNode } = require("vite");
+// destination: {
+//   stopId: String,
+//   stopName: String,
+//   lat: String,
+//   long: String,
+// },
+// timeOfRequest: { type: Date, required: false },
+// wakeUpTimer: { type: Number, required: false },
+// wakeUpKillometer: { type: Number, required: false },
+// finished: { type: Boolean, required: false },
 
-const newPost = async (req, res) => {
-  const { description, image, date, writer } = req.body;
+const newTrip = async (req, res) => {
+  const { stopId, stopName, lat, long, wakeUpTimer, wakeUpKillometer } =
+    req.body;
   try {
     const realId = jwt.verify(req.headers.token, process.env.SECRET);
-    const newPost = await Post.create({
-      description,
-      date,
-      writer,
-      image,
+    const destinationObj = {
+      stopId: stopId,
+      stopName: stopName,
+      lat: lat,
+      long: long,
+    };
+    console.log(destinationObj, wakeUpKillometer, wakeUpTimer);
+    console.log(req.body);
+    const newTrip = await Trip.create({
+      destination: destinationObj,
+      timeOfRequest: new Date(),
+      wakeUpTimer: wakeUpTimer,
+      wakeUpKillometer: wakeUpKillometer,
+      finished: false,
     });
-    // console.log(newPost, "This is a new post");
+
     const updateUser = await User.findByIdAndUpdate(realId.id, {
-      $push: { posts: { _id: newPost._id } },
+      $push: { trips: { _id: newTrip._id } },
     });
     // console.log(updateUser);
-    return res.status(200).json(newPost);
+    return res.status(200).json(newTrip);
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -127,7 +147,7 @@ const isPostLiked = async (req, res) => {
 };
 
 module.exports = {
-  newPost,
+  newTrip,
   deletePost,
   getPostsByToken,
   getUserByPost,
