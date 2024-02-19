@@ -48,7 +48,9 @@ const CallToSpecifiedNumber = async (req, res) => {
             to: `+972${userPhoneNumber}`,
             from: "+97233820952",
           })
-          .then((call) => console.log(call))
+          .then((call) => {
+            console.log(call);
+          })
           .catch((error) =>
             console.error("Error making the call:", error.message)
           );

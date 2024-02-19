@@ -44,6 +44,7 @@ const register = async (req, res) => {
       username,
       password: hashedPassword,
       isSleeping: false,
+      voiceType: 0,
       appUses: 0,
       // fullname,
       // gender,
