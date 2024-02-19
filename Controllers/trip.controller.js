@@ -18,6 +18,7 @@ const { ModuleNode } = require("vite");
 const newTrip = async (req, res) => {
   const { stopId, stopName, lat, long, wakeUpTimer, wakeUpKillometer } =
     req.body;
+  console.log(stopId, stopName, lat, long, wakeUpTimer, wakeUpKillometer);
   try {
     const realId = jwt.verify(req.headers.token, process.env.SECRET);
     const destinationObj = {
@@ -41,6 +42,26 @@ const newTrip = async (req, res) => {
     });
     // console.log(updateUser);
     return res.status(200).json(newTrip);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
+
+const finishLastTrip = async (req, res) => {
+  try {
+    const realId = jwt.verify(req.headers.token, process.env.SECRET);
+    const updateUser = await User.findById(realId.id);
+    const tempUserTrip = updateUser.trips[updateUser.trips.length - 1];
+    console.log(tempUserTrip._id, "This is the user trip");
+    const updatedTrip = await Trip.findByIdAndUpdate(
+      tempUserTrip._id,
+      {
+        finished: true,
+      },
+      { new: true }
+    );
+    console.log(updatedTrip); // console.log(updateUser);
+    return res.status(200).json(updatedTrip);
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -148,6 +169,7 @@ const isPostLiked = async (req, res) => {
 
 module.exports = {
   newTrip,
+  finishLastTrip,
   deletePost,
   getPostsByToken,
   getUserByPost,
