@@ -76,6 +76,19 @@ const finishLastTrip = async (req, res) => {
     res.status(500).json(err.message);
   }
 };
+const getLastTrip = async (req, res) => {
+  try {
+    const realId = jwt.verify(req.headers.token, process.env.SECRET);
+    const updateUser = await User.findById(realId.id);
+    const tempUserTrip = updateUser.trips[updateUser.trips.length - 1];
+    console.log(tempUserTrip);
+    const updatedTrip = await Trip.findById(tempUserTrip._id);
+    console.log(updatedTrip); // console.log(updateUser);
+    return res.status(200).json(updatedTrip);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+};
 
 const getTripById = async (req, res) => {
   try {
@@ -92,4 +105,5 @@ module.exports = {
   newTrip,
   finishLastTrip,
   getTripById,
+  getLastTrip,
 };
