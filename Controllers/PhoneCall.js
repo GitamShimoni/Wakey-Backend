@@ -1,5 +1,3 @@
-const accountSid = "AC80059d090055790f13ccd74abbd74be1";
-const authToken = "a9ffb4018f95e9a69736123e57b1f7d9";
 const client = require("twilio")(accountSid, authToken);
 
 const phoneNumber = "532312574";
