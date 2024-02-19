@@ -3,7 +3,7 @@ const express = require("express");
 
 const router = express.Router();
 
-router.route("/getUser").post(userService.getUser);
+router.route("/getUser").get(userService.getUser);
 router.route("/getUserByUsername").post(userService.getUserByUsername);
 router
   .route("/changeIsUserSleepingToTrue")

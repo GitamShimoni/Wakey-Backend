@@ -7,8 +7,7 @@ const { ModuleNode } = require("vite");
 const getUser = async (req, res) => {
   try {
     const realId = jwt.verify(req.headers.token, process.env.SECRET);
-    const UserData = await User.findOne({ _id: realId.id });
-    // console.log(UserData, "This is the user DATA");
+    const UserData = await User.findById(realId.id);
     return res.status(200).json(UserData);
   } catch (err) {
     return res.status(500).json(err.message);
@@ -48,7 +47,6 @@ const changeIsUserSleepingToFalse = async (req, res) => {
 };
 const isUserSleeping = async (req, res) => {
   try {
-    console.log("Got into the function", req.headers.token);
     const realId = jwt.verify(req.headers.token, process.env.SECRET);
     const UserData = await User.findById(realId.id);
     console.log(UserData.isSleeping);

@@ -8,6 +8,7 @@ const tripSchema = new mongoose.Schema({
     long: String,
   },
   timeOfRequest: { type: Date, required: false },
+  shilut: { type: String, required: false },
   wakeUpTimer: { type: Number, required: false },
   wakeUpKillometer: { type: Number, required: false },
   finished: { type: Boolean, required: false },

@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isSleeping: { type: Boolean, required: false },
+  voiceType: { type: Number, required: false },
   appUses: { type: Number, required: false },
   phoneNumber: { type: String, required: false },
   trips: [{ type: mongoose.Types.ObjectId, ref: "Trip" }],
