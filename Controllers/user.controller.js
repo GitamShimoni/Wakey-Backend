@@ -6,6 +6,7 @@ const { ModuleNode } = require("vite");
 
 const getUser = async (req, res) => {
   try {
+    console.log(req.headers.token);
     const realId = jwt.verify(req.headers.token, process.env.SECRET);
     const UserData = await User.findOne({ _id: realId.id });
     // console.log(UserData, "This is the user DATA");
@@ -37,6 +38,24 @@ const changeIsUserSleepingToFalse = async (req, res) => {
       realId.id,
       {
         isSleeping: false,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(UserData);
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};
+const changeCallingVoice = async (req, res) => {
+  try {
+    const realId = jwt.verify(req.headers.token, process.env.SECRET);
+    const newVoiceType = req.headers.voicetype;
+    console.log("🚀 ~ changeCallingVoice ~ newVoiceType:", newVoiceType)
+    const UserData = await User.findByIdAndUpdate(
+      realId.id,
+      {
+        voiceType: newVoiceType,
       },
       { new: true }
     );
@@ -117,4 +136,5 @@ module.exports = {
   isUserSleeping,
   getUsers,
   addAFriend,
+  changeCallingVoice
 };
