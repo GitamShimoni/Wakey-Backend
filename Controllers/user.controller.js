@@ -14,6 +14,49 @@ const getUser = async (req, res) => {
     return res.status(500).json(err.message);
   }
 };
+const changeIsUserSleepingToTrue = async (req, res) => {
+  try {
+    const realId = jwt.verify(req.headers.token, process.env.SECRET);
+    const UserData = await User.findByIdAndUpdate(
+      realId.id,
+      {
+        isSleeping: true,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(UserData);
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};
+const changeIsUserSleepingToFalse = async (req, res) => {
+  try {
+    const realId = jwt.verify(req.headers.token, process.env.SECRET);
+    const UserData = await User.findByIdAndUpdate(
+      realId.id,
+      {
+        isSleeping: false,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(UserData);
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};
+const isUserSleeping = async (req, res) => {
+  try {
+    console.log("Got into the function", req.headers.token);
+    const realId = jwt.verify(req.headers.token, process.env.SECRET);
+    const UserData = await User.findById(realId.id);
+    console.log(UserData.isSleeping);
+    return res.status(200).json(UserData.isSleeping);
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};
 const getUserByUsername = async (req, res) => {
   const { username } = req.body;
   console.log("got into function");
@@ -69,6 +112,9 @@ const addAFriend = async (req, res) => {
 module.exports = {
   getUser,
   getUserByUsername,
+  changeIsUserSleepingToTrue,
+  changeIsUserSleepingToFalse,
+  isUserSleeping,
   getUsers,
   addAFriend,
 };

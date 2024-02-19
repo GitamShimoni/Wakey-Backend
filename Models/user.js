@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   isSleeping: { type: Boolean, required: false },
   appUses: { type: Number, required: false },
+  phoneNumber: { type: String, required: false },
   trips: [{ type: mongoose.Types.ObjectId, ref: "Trip" }],
   email: { type: String, required: false, unique: false },
   fullName: { type: String, required: false },
