@@ -51,6 +51,7 @@ const newTrip = async (req, res) => {
       $push: { trips: { _id: newTrip._id } },
     });
     // console.log(updateUser);
+    console.log(newTrip, "This is the new trip");
     return res.status(200).json(newTrip);
   } catch (err) {
     res.status(500).json(err.message);
