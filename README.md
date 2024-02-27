@@ -6,6 +6,9 @@ Leveraging GPS technology and government APIs, our platform accomplishes its pri
 
 # Frontend Side - https://github.com/GitamShimoni/Wakey-frontend
 
+<img width="273" alt="Search by location" src="https://github.com/GitamShimoni/Gitams_Projects/assets/11949650/3474224e-f584-4ba1-9607-a8790ed44d20">
+<img width="276" alt="In trip popup" src="https://github.com/GitamShimoni/Gitams_Projects/assets/11949650/a008f751-42a9-4751-a8c4-d2fe2b9093f0">
+<img width="272" alt="Settings" src="https://github.com/GitamShimoni/Gitams_Projects/assets/11949650/aabac64a-5490-4e13-8262-9d0eb8c6d4b0">
 ==========================================================================
 
 Key Features:
